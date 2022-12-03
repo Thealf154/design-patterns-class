@@ -1,19 +1,17 @@
-import { Postgres } from "src/common/db/postgres";
+import { PgConnection, ClientBase } from "src/common/db/pg";
 
-import { IUserRepository } from "./interfaces/IUserRepository";
+import { IUserRepository } from "./interface";
 
-export default class UserRepository implements IUserRepository {
+export class UserRepository implements IUserRepository {
 
-    private client;
+  private db: ClientBase;
 
-    constructor() {
-        this.client = Postgres.getInstance().client;
-    }
+  constructor() {
+    this.db = PgConnection.getInstance().client;
+  }
 
-    async getNow(): Promise<string> {
-        const dbRes = await this.client.query("SELECT NOW()");
-        const now = dbRes.rows.at(0);
-        console.log({dbRes});
-        return Promise.resolve(now);
-    }
+  async getUserById(userId: number): Promise<any> {
+    const result = await this.db.query("SELECT NOW()");
+    return result;
+  }
 }

@@ -1,6 +1,5 @@
 import express from 'express';
-import config from "src/config";
-import UserController from './controllers/get-user';
+import { UserController } from './controllers/user-controller';
 
 const app = express();
 const port = config.port;
